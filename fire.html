@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .message {
+            position: relative;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .message h1 {
+            font-size: 3rem;
+            color: #ff69b4;
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 6s steps(20, end) infinite;
+        }
+
+        .message img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .play-button {
+            position: absolute;
+            z-index: 20;
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: white;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            bottom: 20px;
+        }
+
+        @keyframes typing {
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .popup {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(255, 105, 180, 0.9);
+        padding: 10px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .popup.hidden {
+        display: none;
+    }
+
+    .claim-button {
+        background: #fff;
+        color: #ff69b4;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .claim-button:hover {
+        background: #ff69b4;
+        color: #fff;
+        transform: scale(1.05);
+    }
+    </style>
+</head>
+<body>
+    <!-- Audio element for background music -->
+    <audio id="background-audio" autoplay loop muted>
+        <source src="audio1.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Audio element for firework explosion sound -->
+    <audio id="firework-sound">
+        <source src="fire.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="popup" class="popup hidden">
+        <button id="claimButton" class="claim-button">Klaim Hadiah</button>
+    </div>
+
+    <canvas id="canvas"></canvas>
+    <div class="message">
+        <h1>Happy New Year SayangQu❤️</h1></h1><br>
+        <img src="bby.jpg" alt="Photo of your loved one">
+    </div>
+
+    <!-- Play Button -->
+    <button id="playButton" class="play-button">Play Music</button>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const audio = document.getElementById('background-audio');
+        const fireworkSound = document.getElementById('firework-sound');
+        const playButton = document.getElementById('playButton');
+
+        // Set canvas size to full screen
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+
+        class Particle {
+            constructor(x, y, color, size) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = size;
+                this.speedX = Math.random() * 2 - 1; // Slower movement
+                this.speedY = Math.random() * 2 - 1; // Slower movement
+                this.life = 300; // Longer life
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.size *= 0.98;
+                this.life--;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function createFirework(x, y) {
+            const colors = ['#ff69b4', '#ff4444', '#ffdd44', '#44ff44', '#4444ff'];
+            for (let i = 0; i < 100; i++) {
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const size = Math.random() * 5 + 2;
+                particles.push(new Particle(x, y, color, size));
+            }
+
+            // Play firework explosion sound
+            fireworkSound.currentTime = 0; // Reset sound to the beginning
+            fireworkSound.play().catch(err => {
+                console.error("Failed to play firework sound:", err);
+            });
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
+                if (particle.life <= 0) {
+                    particles.splice(index, 1);
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        function randomFireworks() {
+            for (let i = 0; i < 3; i++) { // Three fireworks at once
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                createFirework(x, y);
+            }
+        }
+
+        setInterval(randomFireworks, 2000); // Fireworks explode every 2 seconds
+
+        // Play music when button is clicked
+        playButton.addEventListener('click', () => {
+            audio.muted = false; // Unmute the audio
+            const playPromise = audio.play(); // Try to play the audio
+
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Audio is playing.");
+                }).catch(error => {
+                    console.error("Audio playback failed:", error);
+                });
+            }
+
+            playButton.style.display = 'none'; // Hide the play button after it's clicked
+        });
+
+        animate();
+
+     // Function to show the popup
+     function showPopup() {
+        const popup = document.getElementById('popup');
+        popup.classList.remove('hidden');
+    }
+
+    // Event listener for claim button
+    document.addEventListener('DOMContentLoaded', () => {
+        const claimButton = document.getElementById('claimButton');
+        if (claimButton) {
+            claimButton.addEventListener('click', () => {
+                alert('Hadiahmu adalah: Kebahagiaan dan Cinta Selamanya 💖 Nanti baru sa kasih hadiahnya pas ketemu😁');
+                const popup = document.getElementById('popup');
+                popup.classList.add('hidden'); // Hide the popup after claim
+            });
+        }
+    });
+
+    // Trigger the popup after a delay
+    setTimeout(showPopup, 5000);
+    </script>
+</body>
+</html>

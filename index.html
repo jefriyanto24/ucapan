@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+        }
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none; /* Prevent interaction with the iframe */
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            animation: fadeIn 1.5s ease-in-out;
+            text-align: center;
+        }
+        .section {
+            display: none;
+            margin-bottom: 30px;
+            animation: slideIn 1s ease-in-out;
+        }
+        .section.active {
+            display: block;
+        }
+        h1 {
+            text-align: center;
+            color: #ff69b4;
+            animation: bounceIn 1s;
+            font-size: 2rem;
+        }
+        h3 {
+            color: #ff69b4;
+        }
+        p {
+            color: #fff;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-style: italic;
+            color: #ddd;
+        }
+        .btn-next {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            background-color: transparent;
+            color: #ff69b4;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            animation: buttonGlow 2s infinite alternate;
+        }
+        .btn-next:hover {
+            transform: scale(1.2);
+        }
+        .play-button {
+            position: absolute;
+            z-index: 20;
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: white;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            bottom: 20px;
+        }
+
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        @keyframes buttonGlow {
+            from { color: #ff69b4; text-shadow: 0 0 10px #ff69b4; }
+            to { color: #ff80a0; text-shadow: 0 0 20px #ff80a0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Embed Video -->
+    <iframe 
+        class="video-bg" 
+        src="https://www.youtube.com/embed/ZsruB8YJw8o?si=Id3aebUF9Rw5DwsR&amp;start=357&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=ZsruB8YJw8o" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+    </iframe>
+
+        <!-- Embed Audio -->
+        <audio id="background-audio" autoplay loop muted>
+            <source src="audio1.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+
+    <div class="container">
+        <h1>Hallo Cantikku😇🥰😁</h1>
+
+        <div class="section active" id="section-1">
+            <h3>Sa Bersykur</h3>
+            <p>Sarrr,</p>
+            <p>Saya kangen hanya sonde mau kontak lu😁, Ini tahun su berakhir, saya hanya mo bilang, 
+                sa sangat bersyukur memilikimu dalam sa pu hidup. Lu tuw ke hadiah terbaik yang pernah sa dapat. 
+                Sa rasa dengan pribadimu saya merasa menjadi diri saya sendiri dan menerima sa pu keadaan. Sumpah ini serius, 
+                saya sangat bersyukur karena Tuhan sudah kas ketemu kita.</p>
+            <button class="btn-next" onclick="showNextSection(2)" aria-label="Next Section">&rarr;</button>
+        </div>
+
+        <div class="section" id="section-2">
+            <h3>Oiya, sa minta maaf eee</h3>
+            <p> Dari hati yang paling dalam sa minta maaf ee. Sa tau, sa sonde jadi yang sempurna untuk lu. Kadang sa omong tasalah atau buat lu sakit hati, walaupun sonde bermaksud. Maaf ee, sayang. Sa janji akan terus belajar untuk jadi orang yang lebih baik, biar saya bisa jadi yang terbaik untuk lu dengan kekurangan yang ada.</p>
+            <button class="btn-next" onclick="showNextSection(3)" aria-label="Next Section">&rarr;</button>
+        </div>
+
+        <div class="section" id="section-3">
+            <h3>Lu Pasti Tau</h3>
+            <p>Beb, Sa mo bilang kalo saya terlalu sayang dan cinta, makanya selalu cemburu saat story laki-laki walaupun itu teman, sa minta maaf. Lu kalo cari saya, sa terlalu semangat, apalagi marah😁, itu bikin saya ke merasa berarti. Sa hnya mau lu tau, cinta saya besar. Sa berharap kita sama-sama terus, saling jaga, dan saling sayang selamanya.</p>
+            <button class="btn-next" onclick="showNextSection(4)" aria-label="Next Section">&rarr;</button>
+        </div>
+
+        <div class="section" id="section-4">
+            <h3>Maria Sariana Abi</h3>
+            <p>Saya mo bilang: Selamat Tahun Baru, Sayang! Semoga tahun depan jadi tahun yang penuh kebahagiaan dan berkat untuk kita dan semua keluarga. Sa berharap supaya kita selalu makin cinta. Nanti baru kita buat tambah kenangan yang banyak🥰.</p>
+            <a href="fire.html" class="btn-next" aria-label="Next Section">&rarr;</a>
+            <footer>
+                Selalu dengan cinta,<br>
+                <b>Jefriyanto</b>
+            </footer>
+        </div>
+    </div>
+    <!-- Play Button -->
+    <button id="playButton" class="play-button">Play Music</button>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const playButton = document.getElementById('playButton');
+        const audio = document.getElementById('background-audio');
+
+        function showNextSection(sectionId) {
+            const currentSection = document.querySelector('.section.active');
+            if (currentSection) {
+                currentSection.classList.remove('active');
+            }
+            const nextSection = document.getElementById(`section-${sectionId}`);
+            if (nextSection) {
+                nextSection.classList.add('active');
+            }
+        }
+        // Play music when button is clicked
+        playButton.addEventListener('click', () => {
+            audio.muted = false; // Unmute the audio
+            const playPromise = audio.play(); // Try to play the audio
+
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Audio is playing.");
+                }).catch(error => {
+                    console.error("Audio playback failed:", error);
+                });
+            }
+
+            playButton.style.display = 'none'; // Hide the play button after it's clicked
+        });
+    </script>
+</body>
+</html>
